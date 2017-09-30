@@ -1,10 +1,11 @@
 (function() {
+  console.log(image)
 
-  const imageWidth = 10;
-  const imageHeight = 10;
+  const imageWidth = image.pixels[0].length;
+  const imageHeight = image.pixels.length;
 
-  const pixelWidth = 70;
-  const pixelHeight = 70;
+  const pixelWidth = 20;
+  const pixelHeight = 20;
 
   const canvas = document.getElementById("pooPoo");
   const canvasWidth = imageWidth*pixelWidth;
@@ -14,41 +15,32 @@
   const ctx = canvas.getContext("2d");
 
   const CLUT = [
-    "#001f3f",
-    "#0074D9",
-    "#7FDBFF",
-    "#39CCCC",
-    "#3D9970",
-    "#2ECC40",
-    "#01FF70",
-    "#FFDC00",
-    "#FF851B",
-    "#FF4136",
-    "#85144b",
-    "#F012BE",
-    "#B10DC9",
-    "#111111",
+    "#000000",
+    "#0000AA",
+    "#00AA00",
+    "#00AAAA",
+    "#AA0000",
+    "#AA00AA",
+    "#AA5500",
     "#AAAAAA",
-    "#DDDDDD"
+    "#555555",
+    "#5555FF",
+    "#55FF55",
+    "#55FFFF",
+    "#FF5555",
+    "#FF55FF",
+    "#FFFF55",
+    "#FFFFFF"
   ];
 
-  const rows = new Array (imageHeight);
-  for (let x = 0; x < rows.length; x++){
-    rows[x] = new Array (imageWidth);
-  }
-  for (let x = 0; x < rows.length; x++){
-    for (let y = 0; y < rows[x].length; y++){
-      let color = Math.floor(Math.random() * CLUT.length);
-      rows[x][y] = color;
+  for (let row = 0; row < imageHeight; row++) {
+    for (let column = 0; column < imageWidth; column++ ) {
+      let colorNumber = image.pixels[row][column];
+      ctx.fillStyle = CLUT[colorNumber];
+      ctx.fillRect(column * pixelWidth, row * pixelHeight, pixelWidth, pixelHeight);
     }
   }
-  for (let x = 0; x < rows.length; x++){
-    for (let y = 0; y < rows[x].length; y++){
-      ctx.fillStyle = CLUT[rows[x][y]];
-      ctx.fillRect(x*pixelWidth,y*pixelHeight,pixelWidth,pixelHeight);
 
-    }
-  }
 
 
 
